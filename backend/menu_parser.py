@@ -1,7 +1,6 @@
 from PyPDF2 import PdfReader
 import json
-import pandas as pd
-import warnings
+import os
 
 
 def read_text(path, page_number):
@@ -20,16 +19,13 @@ def read_text(path, page_number):
 
 
 def load_csv_file(filename):
-    #read and store content of the excel file
-    read_file = pd.read_excel(filename)
-    #write the df obj into a csv file
-    read_file.to_csv(filename, index=None, header=True)
-    #read a csv file and convert into a dataframe obj
-    df = pd.DataFrame(pd.read_csv(filename))
-    return df
+    raw_data = open(filename, "r")
+    return raw_data.read()
 
 
-print(load_csv_file("./menus/rvc_week2_2022.xlsx"))
+
+print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
+
 def create_database():
     pass
 
