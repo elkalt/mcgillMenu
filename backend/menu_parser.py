@@ -23,7 +23,7 @@ def load_csv_file(filename):
     return raw_data.read()
 
 
-print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
+#print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
 
 DINING_HALLS = ["royal victoria college", "bishop mountain hall", "new residence hall"]
 DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
@@ -33,25 +33,23 @@ def create_json_dict(raw_data):
     '''(str) -> NoneType
     Creates a json file in the database.
     Returns a dictionary for now...'''
-    #Should it reload everytime??
-    json_dict = dict()
     raw_list = raw_data.split("\n")
-    day = "maddie day!"
-    monday_dict = dict()
-    tuesday_dict = dict()
-    dish = ""
-    symbol_list = []
     better_list = []
     for i in range(len(raw_list)):
-        if raw_list[i][-1] == " ":
-            better_list.append(raw_list[i]+raw_list[i+1])
+        if "\"\"" == raw_list[i]:
+            continue
+        elif raw_list[i][-2] == " ":
+            better_list.append(raw_list[i].strip("\"") + raw_list[i+1].strip("\""))
         else:
             better_list.append(raw_list[i])
-        if "\"" in raw_list[i]:
-            continue
+
+    json_dict = dict()
+    day = "maddie day!"
+    dish = ""
+    symbol_list = []
 
     for i in range(len(better_list)):
-        new_line = better_list[i].lower()
+        new_line = better_list[i].lower().strip("\"")
         if new_line in DINING_HALLS:
             hall_name = new_line
         elif new_line in DAYS:
@@ -60,7 +58,8 @@ def create_json_dict(raw_data):
         elif new_line in MEALS:
             meal = new_line
             json_dict[day][meal] = {}
-
+        elif new_line in ["dining hall", "milk"]:
+            continue
         elif new_line[0:2] == "w/":
             new_list = new_line.split()
             for j in range(len(new_list)):
@@ -107,9 +106,10 @@ def create_json_dict(raw_data):
     #load json string here with hall_name
     return json_dict
 
-x = "WEDNESDAY\nBREAKFAST\nBlueberry Pancakes\nSOUP\nThai Chicken & Rice\nTomato & Tofu Potage VE\nLUNCH\nCod in Herbed Crust MSC\nSpaghetti\nw/ Meat Sauce\nw/Primavera Sauce VE\nGarlic Bread VE \nVegetable Fried Rice\nDINNER\nTacos VEGAN\nPulled PorkTacos GF DF\nBeef Tacos DF"
+x = "\"\"\n\"\"\n\"\"\n\"\"\n\"\"\n\"\"\n\"\"\nWEDNESDAY\nBREAKFAST\nBlueberry Pancakes\nSOUP\nThai Chicken & Rice\nTomato & Tofu Potage VE\nLUNCH\nCod in Herbed Crust MSC\nSpaghetti\nw/ Meat Sauce\nw/Primavera Sauce VE\nGarlic Bread VE \nVegetable Fried Rice\nDINNER\nTacos VEGAN\nPulled PorkTacos GF DF\nBeef Tacos DF"
 
 
 
-#data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx"))
-#y = create_json_dict(data)
+data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week4_2022.csv"))
+y = create_json_dict(data)
+print(y)
