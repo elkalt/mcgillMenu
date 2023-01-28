@@ -6,5 +6,4 @@ git pull
 # reqs
 python3.8 -m pip install -r requirements.txt
 # re-load
-touch /var/www/louismeun
-ier_pythonanywhere_com_wsgi.py
+touch /var/www/louismeunier_pythonanywhere_com_wsgi.py
