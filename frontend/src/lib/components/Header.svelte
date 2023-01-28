@@ -2,25 +2,28 @@
     export let defaultDisplay = true;
 </script>
 
-{#if defaultDisplay}
-    <header>
-        <h1>My App</h1>
-        <a href="/">Menu</a>
-        <a href="/dishes">Dishes</a>
-        <a href="/about">About</a>
-    </header>
-{:else}
-    <slot></slot>
-{/if}
+<header>
+    <h1>McGill Menu Service</h1>
+    <nav>
+        {#if defaultDisplay}
+            <a href="/">Menu</a> |
+            <a href="/dishes">Dishes</a> |
+            <a href="/about">About</a>
+        {:else}
+            <slot></slot>
+        {/if}
+    </nav>
+</header>
 
 <style>
+    header > h1 {
+        color: var(--dark-pink);
+    }
     header {
         height: 100px;
         width: 100%;
-        background-color: var(--secondary-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
+        text-align: center;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--light-pink);
     }
 </style>
