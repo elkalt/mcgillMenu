@@ -1,6 +1,7 @@
 :root {
     --background-color: #f7ede2;
     --secondary-color: #84a59d;
+    --secondary-color-accent: #8984a5;
     --light-pink: #f5cac3;
     --dark-pink: #f28482;
     --mustard: #f6bd60;
@@ -19,4 +20,43 @@ main {
     width: 100%;
     margin: 0;
     padding: 0;
+    text-align: center;
+}
+nav {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+nav > a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+nav > a:hover {
+    color: var(--mustard);
+}
+nav > a.active {
+    font-size: larger;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--secondary-color-accent);
+}
+a {
+    text-decoration: none;
+    color: var(--dark-pink);
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+a:hover {
+    color: var(--light-pink);
 }
