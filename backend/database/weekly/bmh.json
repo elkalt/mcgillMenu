@@ -1,0 +1,23 @@
+{
+    "Monday": {
+        "Breakfast": {
+            "Quiche": {
+                "vegan": true,
+                "glutenFree": false,
+                "dairyFree": false
+            }
+        },
+        "Lunch": ["Eggs", "Bacon", "Toast"],
+        "Dinner": ["Eggs", "Bacon", "Toast"]
+    },
+    "Tuesday": {
+        "Breakfast": ["Eggs", "Bacon", "Toast"],
+        "Lunch": ["Eggs", "Bacon", "Toast"],
+        "Dinner": ["Eggs", "Bacon", "Toast"]
+    },
+    "Wednesday": {
+        "Breakfast": ["Eggs", "Bacon", "Toast"],
+        "Lunch": ["Eggs", "Bacon", "Toast"],
+        "Dinner": ["Eggs", "Bacon", "Toast"]
+    }
+}
