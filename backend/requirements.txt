@@ -1,3 +1,4 @@
 firebase_admin==6.0.1
 Flask==2.2.2
+Flask_Cors==3.0.10
 PyPDF2==3.0.1
