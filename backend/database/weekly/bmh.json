@@ -5,6 +5,11 @@
                 "vegan": true,
                 "glutenFree": false,
                 "dairyFree": false
+            },
+            "Eggs": {
+                "vegan": false,
+                "glutenFree": true,
+                "dairyFree": false
             }
         },
         "Lunch": ["Eggs", "Bacon", "Toast"],
