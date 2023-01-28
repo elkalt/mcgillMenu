@@ -73,6 +73,16 @@ def get_dining_hall(dining_hall_code: str):
     dining_hall = dining_hall_ref.get().to_dict()
     return dining_hall
 
+def get_all_dining_halls():
+    db = check_creds()
+    dining_halls_ref = db.collection("dining_halls")
+    dining_halls = dining_halls_ref.stream()
+    dining_halls_dict = {}
+    for dining_hall in dining_halls:
+        dining_halls_dict[dining_hall.id] = dining_hall.to_dict()
+
+    return dining_halls_dict
+
 # ! Meals
 def get_all_meals():
     db = check_creds()
