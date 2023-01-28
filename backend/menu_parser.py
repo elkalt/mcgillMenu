@@ -36,16 +36,22 @@ def create_json_dict(raw_data):
     #Should it reload everytime??
     json_dict = dict()
     raw_list = raw_data.split("\n")
-    day = "default"
+    day = "maddie day!"
     monday_dict = dict()
     tuesday_dict = dict()
     dish = ""
     symbol_list = []
+    better_list = []
     for i in range(len(raw_list)):
+        if raw_list[i][-1] == " ":
+            better_list.append(raw_list[i]+raw_list[i+1])
+        else:
+            better_list.append(raw_list[i])
         if "\"" in raw_list[i]:
             continue
 
-        new_line = raw_list[i].lower()
+    for i in range(len(better_list)):
+        new_line = better_list[i].lower()
         if new_line in DINING_HALLS:
             hall_name = new_line
         elif new_line in DAYS:
@@ -89,12 +95,13 @@ def create_json_dict(raw_data):
                 else:
                     json_dict[day][meal][dish][elmt] = False
 
-        else:
+        elif new_line.split()[0] not in DIETARY_SYMBOLS:
             line_list = new_line.split()
-            for elmt in new_line:
+            for elmt in line_list:
                 symbol_list.append(elmt)
             for elmt in DIETARY_SYMBOLS:
                 json_dict[day][meal][dish][elmt] = True
+
 
     #json_dict[day] = put
     #load json string here with hall_name
@@ -102,5 +109,7 @@ def create_json_dict(raw_data):
 
 x = "WEDNESDAY\nBREAKFAST\nBlueberry Pancakes\nSOUP\nThai Chicken & Rice\nTomato & Tofu Potage VE\nLUNCH\nCod in Herbed Crust MSC\nSpaghetti\nw/ Meat Sauce\nw/Primavera Sauce VE\nGarlic Bread VE \nVegetable Fried Rice\nDINNER\nTacos VEGAN\nPulled PorkTacos GF DF\nBeef Tacos DF"
 
-y = create_json_dict(x)
-print(y)
+
+
+#data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx"))
+#y = create_json_dict(data)
