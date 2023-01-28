@@ -79,19 +79,3 @@ all_halls = [
 #     update_dining_hall(hall["hall_id"], hall["name"], hall["location"], hall["hours"], hall["menu"])
 
 # print(get_all_dining_halls())
-
-
-update_meal("poutine", {
-    "name": "Poutine",
-    "options": [
-        "VF",
-        "VE"
-    ]
-})
-
-update_meal("porridge", {
-    "name": "Porridge",
-    "options": [
-        "VE"
-    ]
-})
