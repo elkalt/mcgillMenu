@@ -1,6 +1,7 @@
 <script>
     import Header from "../lib/components/Header.svelte";
 
+    export let data;
 </script>
 
 <Header defaultDisplay={ false }>
@@ -10,3 +11,20 @@
 </Header>
 
 <h1>home</h1>
+
+<div class="container">
+    {#each dining_day in data}
+    <div class="item">{ data }</div>
+</div>
+
+
+<style>
+    .container {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+    .item {
+        border: 1px solid black;
+    }
+</style>
