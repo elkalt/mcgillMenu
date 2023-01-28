@@ -23,9 +23,84 @@ def load_csv_file(filename):
     return raw_data.read()
 
 
-
 print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
 
-def create_database():
-    pass
+DINING_HALLS = ["royal victoria college", "bishop mountain hall", "new residence hall"]
+DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+MEALS = ["breakfast", "lunch", "dinner", "soup"]
+DIETARY_SYMBOLS = ["gf", "v", "ve", "df", "mse", "h"]
+def create_json_dict(raw_data):
+    '''(str) -> NoneType
+    Creates a json file in the database.
+    Returns a dictionary for now...'''
+    #Should it reload everytime??
+    json_dict = dict()
+    raw_list = raw_data.split("\n")
+    day = "default"
+    monday_dict = dict()
+    tuesday_dict = dict()
+    dish = ""
+    symbol_list = []
+    for i in range(len(raw_list)):
+        if "\"" in raw_list[i]:
+            continue
 
+        new_line = raw_list[i].lower()
+        if new_line in DINING_HALLS:
+            hall_name = new_line
+        elif new_line in DAYS:
+            day = new_line
+            json_dict[day] = {}
+        elif new_line in MEALS:
+            meal = new_line
+            json_dict[day][meal] = {}
+
+        elif new_line[0:2] == "w/":
+            new_list = new_line.split()
+            for j in range(len(new_list)):
+                if new_list[j] in DIETARY_SYMBOLS:
+                    new_key = dish + " " + " ".join(new_list[:j])
+                    symbol_list.append(new_list[j:])
+                    break
+                new_key = dish + " " + new_line
+            for elmt in symbol_list:
+                if elmt in DIETARY_SYMBOLS:
+                    json_dict[day][meal][dish][elmt] = True
+
+            json_dict[day][meal][new_key] = json_dict[day][meal][dish]
+        elif new_line.split()[0] not in DIETARY_SYMBOLS:
+            dish_list = new_line.split()
+
+            dish = ""
+            symbol_list = []
+            for j in range(len(dish_list)):
+                if dish_list[j] in DIETARY_SYMBOLS:
+                    dish = " ".join(dish_list[:j])
+                    symbol_list = dish_list[j:]
+                    break
+                else:
+                    dish = new_line
+
+            json_dict[day][meal][dish] = {}
+            for elmt in DIETARY_SYMBOLS:
+                if elmt in symbol_list:
+                    json_dict[day][meal][dish][elmt] = True
+                    symbol_list.remove(elmt)
+                else:
+                    json_dict[day][meal][dish][elmt] = False
+
+        else:
+            line_list = new_line.split()
+            for elmt in new_line:
+                symbol_list.append(elmt)
+            for elmt in DIETARY_SYMBOLS:
+                json_dict[day][meal][dish][elmt] = True
+
+    #json_dict[day] = put
+    #load json string here with hall_name
+    return json_dict
+
+x = "WEDNESDAY\nBREAKFAST\nBlueberry Pancakes\nSOUP\nThai Chicken & Rice\nTomato & Tofu Potage VE\nLUNCH\nCod in Herbed Crust MSC\nSpaghetti\nw/ Meat Sauce\nw/Primavera Sauce VE\nGarlic Bread VE \nVegetable Fried Rice\nDINNER\nTacos VEGAN\nPulled PorkTacos GF DF\nBeef Tacos DF"
+
+y = create_json_dict(x)
+print(y)
