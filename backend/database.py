@@ -120,8 +120,11 @@ def get_ratings_by_dining_hall(meal_id, dining_hall_id):
     meal = meal_ref.get().to_dict()
     ratings = meal["ratings"]
     ratings_by_dining_hall = []
+    print(ratings)
     for rating in ratings:
-        if rating["dining_hall_id"] == dining_hall_id :
+        if not type(rating) == dict or not rating["dining_hall_id"] or not rating["rating"]:
+            continue
+        elif rating["dining_hall_id"] == dining_hall_id:
             ratings_by_dining_hall.append(rating)
 
     return ratings_by_dining_hall
