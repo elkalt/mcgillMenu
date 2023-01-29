@@ -24,6 +24,6 @@
         width: 100%;
         text-align: center;
         padding-bottom: 5px;
-        border-bottom: 2px solid var(--light-pink);
+        border-bottom: 2px solid var(--dark-pink);
     }
 </style>
