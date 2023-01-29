@@ -5,9 +5,16 @@
     export let data;
     data = data.data;
     
-    const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-    console.log(data.data);
+    const allDaysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    // const notAllDaysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday"];
 
+    let visible = {
+        "bmh": true,
+        "cs": true,
+        "dh": true,
+        "nrh": true,
+        "rvc": true
+    }
 </script>
 
 <Header defaultDisplay={ false }>
@@ -16,26 +23,56 @@
     <a href="/about">About</a>
 </Header>
 
-<h2>This weeks menu:</h2>
+<h1 style="text-align: center">This Weeks Menu</h1>
 
 <div class="container">
     <div></div>
-    {#each daysOfWeek as day}
-        <div class="item grid_header"><span style="text-transform: capitalize">{day}</span></div>
-    {/each}
-    <div class="item grid_header">Royal Victoria College</div>
-    <div class="item grid_header" style="grid-column: 3/4">Douglas Hall</div>
-    <div class="item grid_header" style="grid-column: 4/5">Bishop Mountain Hall</div>
-    <div class="item grid_header" style="grid-column: 5/6">Carrefour Sherbrooke</div>
-    <div class="item grid_header" style="grid-column: 6/7">New Residence Hall</div>
+
     {#each Object.keys(data) as id}
-        {#each daysOfWeek as day}
-            {#if data[id].menu[day] > 0}
+        <!-- Hall header -->
+            <div class="item grid_header"
+            style={visible[id] ? "padding:0;": ""}
+            ><h3>
+                <a href="#"
+                    on:click = {() => {
+                        visible[id] = !visible[id];
+                    }}
+                >{ !visible[id] ? data[id]["name"]  + " -" : `${id} +`}</a>
+            </h3></div>
+    {/each}
+
+    {#each allDaysOfWeek as day}
+    <!-- Day header -->
+        <div class="item grid_header"><span style="text-transform: capitalize;"><h2>{day}</h2></span></div>
+        
+        {#each Object.keys(data) as id}
+        <!-- Check if that day has a menu and if so, show it -->
+        {#if !visible[id]}
+            {#if data[id]["menu"][day] != undefined && Object.keys(data[id]["menu"][day]).length > 0}
                 <div class="item">
-                    <!-- <a href={``}>{ data.data[dining_day].menu[meal] }</a> -->
-                </div>
+                        {#each Object.keys(data[id]["menu"][day]) as meal}
+                            <h2>{ meal }:</h2>
+                            {#each Object.keys(data[id]["menu"][day][meal]) as dish}  
+                                <li>
+                                    <!-- <div style="flex: 1;"> -->
+                                        <a href={`/dishes/${dish.replace("w/", "with ").replace("/", " or ")}`}> {dish.replace("w/", "with ").replace("/", " or ")} </a>
+                                        <!-- <div class="dietary">
+                                            {#each Object.keys(data.data[dish]) as key}
+                                            {#if data.data[dish][key] && key != "ratings"}
+                                            <div class="pill_list {key}" title={keyConverter[key]}>{key.toUpperCase()}</div>
+                                            {/if}
+                                            {/each}
+                                        </div> -->
+                                    <!-- </div> -->
+                                </li>
+                            {/each}
+                        {/each}
+                    </div>
+                {:else}
+                    <div class="item">No menu available</div>
+                {/if}
             {:else}
-                <div class="item">No menu available</div>
+                <div class="item">-</div>
             {/if}
         {/each}
     {/each}
@@ -45,13 +82,12 @@
 <style>
     .container {
         display: grid;
-        grid-auto-columns: minmax(6, 1fr);
-        grid-template-rows: repeat(8, 1fr);
+        grid-template-columns: repeat(8, auto);
+        grid-template-rows: auto repeat(5, auto);
         grid-gap: 1px;
-        padding-left: 2rem;
-        padding-right: 2rem;
         background-color: var(--background-color);
-        grid-auto-flow: column;
+        grid-auto-flow: column dense;
+        margin: 1em;
     }
     .item {
         font-family: 'Montserrat', sans-serif;
@@ -61,7 +97,7 @@
         border-radius: 5px;
         text-align: center;
         justify-content: center;
-        color: var(--secondary-color-accent2)
+        color: var(--secondary-color-accent2);
     }
     .grid_header {
         background-color: var(--background-color-accent2);
