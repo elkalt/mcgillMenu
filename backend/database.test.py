@@ -2,6 +2,7 @@
 
 from database import *
 from menu_parser import *
+from random import randint
 
 all_halls = [
  {
@@ -86,15 +87,26 @@ all_halls = [
 }
 
 
-for file in [cs,bmh, nrh, rvc, dh]:
-    data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", file))
+# ! for seeding db
+# for file in [cs,bmh, nrh, rvc, dh]:
+#     data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", file))
 
-    y = create_json_dict(data)
+#     y = create_json_dict(data)
 
-    update_dining_hall(
-        file.split("_")[0].upper(), 
-        file.split("_")[0].upper(), [0,0], [0,0], y)
+#     update_dining_hall(
+#         file.split("_")[0].upper(), 
+#         file.split("_")[0].upper(), [0,0], [0,0], y)
 
 # data = load_csv_file("./menus/dh_week3_2022.csv")
 # y = create_json_dict(data)
 # print(y)
+
+def random_ratings():
+    all_meals = list(get_all_meals().keys())
+    for meal in all_meals:
+        for i in range(0, randint(0, 7)):
+            set_rating(
+                meal, 
+                randint(1, 5),
+                DINING_HALL_IDS[randint(0, len(DINING_HALL_IDS) - 1)])
+random_ratings()
