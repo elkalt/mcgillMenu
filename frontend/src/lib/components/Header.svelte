@@ -5,7 +5,7 @@
 <header>
     <div class="title">
         <h1>Campus</h1> 
-        <img src="bird.png" height="60px"/>
+        <img src="/bird.png" height="60px"/>
         
         <h1>Critics</h1>
     </div>
