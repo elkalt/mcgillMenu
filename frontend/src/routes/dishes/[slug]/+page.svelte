@@ -52,24 +52,55 @@
     }
 </script>
   
-<h1>{ $page.params.slug }</h1>
 
-<h2>Rating:</h2>
-{#if data.response_json.data["ratings"].length > 0}
-    <StarRating rating={getRating(data.response_json.data["ratings"])} 
-        style="margin-bottom: 0;" config={{ "fullColor": "#ffbc2d" }} />
-{:else}
-    <p>Not rated yet</p>
-{/if}
-
-<h2>Dietary notes:</h2>
-<ul>
-    {#each Object.keys(data.response_json.data) as note}
-        {#if data.response_json.data[note] && note !== 'ratings'}
-            <div class="pill {note}" title={keyConverter[note]}>{note.toUpperCase()}</div>
+<div class="container_local">
+    <div class="item_title">
+        <h1>{ $page.params.slug }</h1>
+    </div>
+    <div class="item_tall">
+        <h2>Rating:</h2>
+        {#if data.response_json.data["ratings"].length > 0}
+            <StarRating rating={getRating(data.response_json.data["ratings"])} 
+                style="margin-bottom: 0;" config={{ "fullColor": "#ffbc2d" }} />
+        {:else}
+            <p>Not rated yet</p>
         {/if}
-    {/each}
-    {#if areNotes() == false}
-        <p>No dietary notes</p>
-    {/if}
-</ul>
+    </div>
+
+    <div class="item_tall">
+        <h2>Dietary notes:</h2>
+        {#each Object.keys(data.response_json.data) as note}
+            {#if data.response_json.data[note] && note !== 'ratings'}
+                <div class="pill_list {note}" title={keyConverter[note]}>{note.toUpperCase()}</div>
+            {/if}
+        {/each}
+        {#if areNotes() == false}
+            <p>No dietary notes</p>
+        {/if}
+    </div>
+</div>
+
+<style>
+    .pill_list {
+        display: inline-block;
+        padding: 0.5em;
+        margin: 0.5em;
+        border-radius: 0.5em;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+    .container_local {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        justify-items: center;
+    }
+    .item_title {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+    }
+    .item_tall {
+        grid-row: 2 / 4;
+        text-align: center;
+    }
+</style>
