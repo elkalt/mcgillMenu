@@ -162,6 +162,64 @@ button {
     width: 7rem;
 }
 
+.search-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 1rem;
+}
+
+.search-wrapper > input {
+    width: 50%;
+    padding: 0.5rem;
+    border: 1px solid var(--secondary-color-accent);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--secondary-color-accent);
+    background-color: var(--background-color-accent2);
+}
+
+.search-wrapper > svg {
+    height: 1.25rem;
+    width: 1.25rem;
+    transform: translateX(-1.7rem);
+    fill: var(--secondary-color-accent);
+}
+
+.restrictions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.restrictions > button {
+    color: black;
+    transition: 0.3s ease-in-out;
+}
+
+.inactive  {
+    background-color: darkgray;
+}
+
+.restrictions > .inactive {
+    color: gray;
+    border: 1px solid slategray;
+}
+
+.reset {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+    font-size: 80%;
+}
 .dropdown {
     position: relative;
     display: inline-block;
@@ -177,4 +235,29 @@ button {
 }
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.restrictions > .gf:hover {
+    background-color: #eacf66;
+    color: black;
+}
+.restrictions > .v:hover {
+    background-color: #69996c;
+    color: black;
+}
+.restrictions > .ve:hover {
+    background-color: #ae815f;
+    color: black;
+}
+.restrictions > .df:hover {
+    background-color: #7badd7;
+    color: black;
+}
+.restrictions > .msc:hover {
+    background-color: #3379c0;
+    color: black;
+}
+.restrictions > .h:hover {
+    background-color: #d8802d;
+    color: black;
 }

@@ -122,7 +122,7 @@ def api_post_rating_by_dish_id(dish_id):
             "message": "Rating must be a number"
         }, 400
     # check if rating is in range
-    if rating < 1 or rating > 5:
+    if rating < 0 or rating > 5:
         return {
             "status": "error",
             "message": "Rating must be between 1 and 5"
@@ -130,11 +130,11 @@ def api_post_rating_by_dish_id(dish_id):
 
     # get dining hall
     dining_hall = request.args.get("dining_hall")
-    if dining_hall.upper() not in DINING_HALL_IDS:
-        return {
-            "status": "error",
-            "message": "Rating must be between 1 and 5"
-        }, 400
+    # if not dining_hall == "" and dining_hall.upper() not in DINING_HALL_IDS:
+    #     return {
+    #         "status": "error",
+    #         "message": "Wrong dining hall"
+    #     }, 400
 
     set_rating(dish_id.lower(), rating, dining_hall.upper())
     ratings = get_ratings(dish_id.lower())

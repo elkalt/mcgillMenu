@@ -134,9 +134,9 @@ def get_ratings_by_dining_hall(meal_id, dining_hall_id):
 def set_rating(meal_id, rating, dining_hall_id):
     db = check_creds()
     # check if dining hall id exists
-    if dining_hall_id not in DINING_HALL_IDS and dining_hall_id.upper() not in DINING_HALL_IDS:
-        print("Invalid dining hall id")
-        return None
+    # if dining_hall_id not in DINING_HALL_IDS and dining_hall_id.upper() not in DINING_HALL_IDS:
+    #     print("Invalid dining hall id")
+    #     return None
     meal_ref = db.collection("meals").document(meal_id)
     if not meal_ref.get().exists:
         return None

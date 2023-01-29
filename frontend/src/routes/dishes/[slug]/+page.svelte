@@ -1,5 +1,5 @@
 <script lang="typescript">  
-    import StarRating from 'svelte-star-rating'
+    import StarRating from "@ernane/svelte-star-rating";
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
     
@@ -50,6 +50,32 @@
         }
         return rating / count;
     }
+
+    let config = (rating) => {
+        return {
+                    score:rating,
+                    readOnly: false,
+                    countStars: 5,
+                    range: {
+                        min: 0, 
+                        max: 5, 
+                        step: 1
+                    },
+                    // showScore: true,
+                    starConfig: {
+                        size: 30,
+                        fillColor: "#ffbc2d",
+                        strokeColor: "#BB8511",
+                        unfilledColor: '#FFF',ledColor: '#000'
+                    }
+                }} 
+
+
+
+
+        const post_url = (rating) => {
+            return `https://louismeunier.pythonanywhere.com/api/dishes/${$page.params.slug}/rate?rating=${rating}&dining_hall`
+        }
 </script>
   
 
@@ -59,12 +85,32 @@
     </div>
     <div class="item_tall">
         <h2>Rating:</h2>
-        {#if data.response_json.data["ratings"].length > 0}
-            <StarRating rating={getRating(data.response_json.data["ratings"])} 
-                style="margin-bottom: 0;" config={{ "fullColor": "#ffbc2d" }} />
-        {:else}
-            <p>Not rated yet</p>
-        {/if}
+            <StarRating 
+            on:change={(e => {
+                console.log(e.target.value);
+                fetch(post_url(e.target.value),
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    }
+                ).then(async (response) => {
+                    if (response.ok) {
+                        console.log(response)
+                        // reload website
+                        const body = await response.json();
+                        // @ts-ignore
+                        data.response_json.data["ratings"] = body;
+                        // config = config(getRating(response))
+                        console.log("success");
+                    } else {
+                        console.log("failure");
+                    }
+                });
+            })}
+                config={config(getRating(data.response_json.data["ratings"]))}
+                />
     </div>
 
     <div class="item_tall">
