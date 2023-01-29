@@ -13,8 +13,11 @@
 <h1>home</h1>
 
 <div class="container">
-    {#each dining_day in data}
-    <div class="item">{ data }</div>
+    {#each Object.keys(data.data) as dining_day}
+        {#each data.data[dining_day].menu as meal}
+            <div class="item">{ meal }</div>
+        {/each}
+    {/each}
 </div>
 
 
