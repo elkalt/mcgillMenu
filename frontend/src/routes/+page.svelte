@@ -1,4 +1,5 @@
 <script lang='ts'>
+    // @ts-nocheck
     import Header from "../lib/components/Header.svelte";
     import "/src/app.css";
 
@@ -54,16 +55,16 @@
                             <h2>{ meal }:</h2>
                             {#each Object.keys(data[id]["menu"][day][meal]) as dish}  
                                 <li>
-                                    <!-- <div style="flex: 1;"> -->
-                                        <a href={`/dishes/${dish.replace("w/", "with ").replace("/", " or ")}`}> {dish.replace("w/", "with ").replace("/", " or ")} </a>
-                                        <!-- <div class="dietary">
-                                            {#each Object.keys(data.data[dish]) as key}
-                                            {#if data.data[dish][key] && key != "ratings"}
-                                            <div class="pill_list {key}" title={keyConverter[key]}>{key.toUpperCase()}</div>
-                                            {/if}
+                                    <a href={`/dishes/${dish.replace("w/", "with ").replace("/", " or ")}`}>
+                                        {dish.replace("w/", "with ").replace("/", " or ")} 
+                                        <div style="display:flex;flex-direction:row; align-items:center;justify-content:center; gap: 0.5em;">
+                                            {#each Object.keys(data[id]["menu"][day][meal][dish]) as diet}
+                                                {#if data[id]["menu"][day][meal][dish][diet] === true}
+                                                    <p style="color: var(--secondary-color-accent); font-weight: 400;  margin-bottom:0; margin-top:0.4em;">{diet.toUpperCase()}</p>
+                                                {/if}
                                             {/each}
-                                        </div> -->
-                                    <!-- </div> -->
+                                        </div>
+                                    </a>
                                 </li>
                             {/each}
                         {/each}
@@ -72,7 +73,7 @@
                     <div class="item">No menu available</div>
                 {/if}
             {:else}
-                <div class="item">-</div>
+                <div class="item" style="font-weight:800; color:var(--secondary-color-accent2)"><bold>_</bold></div>
             {/if}
         {/each}
     {/each}
