@@ -5,6 +5,7 @@
      * @type {any}
      */
      export let data;
+     console.log(data)
 </script>
 
 <Header defaultDisplay={ false }>
@@ -17,9 +18,9 @@
 
 <ul>
     {#each Object.keys(data.data) as dish}
-        {#if data.data[dish].name != undefined}
+        {#if dish != "_"}
             <li>
-                <a href={`/dishes/${data.data[dish].name}`}> {data.data[dish].name} </a>
+                <a href={`/dishes/${dish}`}> {dish} </a>
             </li>
         {/if}
     {/each}
