@@ -130,7 +130,7 @@ def api_post_rating_by_dish_id(dish_id):
 
     # get dining hall
     dining_hall = request.args.get("dining_hall")
-    if dining_hall != "" and dining_hall.upper() not in DINING_HALL_IDS:
+    if not dining_hall == "" and dining_hall.upper() not in DINING_HALL_IDS:
         return {
             "status": "error",
             "message": "Wrong dining hall"
