@@ -108,10 +108,12 @@ def create_json_dict(raw_data):
 
         elif new_line.split()[0] in DIETARY_SYMBOLS:
             line_list = new_line.split()
-            for elmt in line_list:
-                symbol_list.append(elmt)
             for elmt in DIETARY_SYMBOLS:
-                json_dict[day][meal][dish][elmt] = True
+                json_dict[day][meal][dish][elmt] = False
+            for elmt in line_list:
+                if elmt in DIETARY_SYMBOLS:
+                    json_dict[day][meal][dish][elmt] = True
+
 
 
     #json_dict[day] = put
