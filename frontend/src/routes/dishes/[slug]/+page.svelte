@@ -74,7 +74,7 @@
 
 
         const post_url = (rating) => {
-            return `http://louismeunier.pythonanywhere.com/api/dishes/${$page.params.slug}/rate?rating=${rating}&dining_hall`
+            return `https://louismeunier.pythonanywhere.com/api/dishes/${$page.params.slug}/rate?rating=${rating}&dining_hall`
         }
 </script>
   
