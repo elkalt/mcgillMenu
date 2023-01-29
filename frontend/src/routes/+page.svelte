@@ -7,7 +7,6 @@
     data = data.data;
     
     const allDaysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-    // const notAllDaysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday"];
 
     let visible = {
         "bmh": true,
