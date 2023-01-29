@@ -122,7 +122,7 @@ def api_post_rating_by_dish_id(dish_id):
             "message": "Rating must be a number"
         }, 400
     # check if rating is in range
-    if rating < 1 or rating > 5:
+    if rating < 0 or rating > 5:
         return {
             "status": "error",
             "message": "Rating must be between 1 and 5"
