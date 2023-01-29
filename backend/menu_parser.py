@@ -127,6 +127,6 @@ rvc = "rvc_week4_2022.csv"
 dh = "dh_week3_2022.csv"
 cs = "cs_jan23_2023.csv"
 bmh = "bmh_week1_2022.csv"
-data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", dh))
+data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", cs))
 y = create_json_dict(data)
 print(y)
