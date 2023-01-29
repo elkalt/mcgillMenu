@@ -3,7 +3,7 @@
 </script>
 
 <header>
-    <h1>McGill Menu Service</h1>
+    <h1>Better McGill Menu</h1>
     <nav>
         {#if defaultDisplay}
             <a href="/">Menu</a> |
