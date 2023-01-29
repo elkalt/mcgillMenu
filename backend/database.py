@@ -53,7 +53,9 @@ def update_dining_hall(
                         meal_exists = True
                         break
                 if not meal_exists:
-                    update_meal(meal_id.lower(), menu[day][day_meal][meal_id])
+                    meal_id_escaped = meal_id.replace("w/", "with ").replace("/", " or")
+                    print(meal_id_escaped)
+                    create_meal(meal_id_escaped.lower(), menu[day][day_meal][meal_id])
 
 
 def get_dining_hall(dining_hall_code: str):
@@ -96,10 +98,10 @@ def update_meal(meal_id, meal):
     meal_ref = db.collection("meals").document(meal_id)
     meal_ref.set(meal)
 
-def create_meal(meal):
+def create_meal(meal_id, meal):
     db = check_creds()
     meal["ratings"] = []
-    meal_ref = db.collection("meals").document(meal["name"].lower()).set(meal)
+    meal_ref = db.collection("meals").document(meal_id.lower()).set(meal)
     return meal_ref
 
 # ! Ratings

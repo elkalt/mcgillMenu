@@ -1,7 +1,7 @@
 # TEST FOR DATABASE FILE, DO NOT CALL ON BACKEND
 
 from database import *
-
+from menu_parser import *
 
 # print(get_dining_hall("bmh"))
 
@@ -79,3 +79,37 @@ all_halls = [
 #     update_dining_hall(hall["hall_id"], hall["name"], hall["location"], hall["hours"], hall["menu"])
 
 # print(get_all_dining_halls())
+{
+    "ratings": [
+        {
+            "dining_hall_id": "BMH",
+            "rating": 3
+        },
+        {
+            "dining_hall_id": "BMH",
+            "rating": 1
+        },
+        {
+            "dining_hall_id": "BMH",
+            "rating": 5
+        },
+        {
+            "dining_hall_id": "BMH",
+            "rating": 2
+        }
+    ]
+}
+
+
+for file in [cs,bmh, nrh, rvc, dh]:
+    data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", file))
+
+    y = create_json_dict(data)
+
+    update_dining_hall(
+        file.split("_")[0].upper(), 
+        file.split("_")[0].upper(), [0,0], [0,0], y)
+
+# data = load_csv_file("./menus/dh_week3_2022.csv")
+# y = create_json_dict(data)
+# print(y)
