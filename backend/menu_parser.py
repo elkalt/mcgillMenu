@@ -1,15 +1,18 @@
 from PyPDF2 import PdfReader
-import json
 import os
 
+DINING_HALLS = ["royal victoria college", "bishop mountain hall", "new residence hall", "douglas hall", "carrefour sherbrooke"]
+DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+MEALS = ["breakfast", "lunch", "dinner", "soup", "brunch"]
+DIETARY_SYMBOLS = ["gf", "v", "ve", "df", "msc", "h"]
 
 def read_text(path, page_number):
-    '''(str, int) -> str'''
+    '''(str, int) -> str
+    Reads pdf given by path input at a certain page and returns
+    a string of what was read. This is not used lol.
+    '''
     reader = PdfReader(path)
     page = reader.pages[page_number]
-    #for page_num in range(len(reader.pages)):
-        #page = reader.pages[page_num]
-        #menu_str += page.extract_text()
     return page.extract_text()
 
 
@@ -17,28 +20,48 @@ def read_text(path, page_number):
 #print(read_text("./menus/rvc_week4_2022.pdf", 0))
 #print(read_text("./menus/rvc_week3_2022.pdf", 0))
 
-
 def load_csv_file(filename):
     raw_data = open(filename, "r")
     return raw_data.read()
 
-def rid_not_apostrophes(weird_string):
-    good_string = ""
-    for i in len(range(weird_string)):
-        pass
-    return good_string
-
 
 #print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
 
-DINING_HALLS = ["royal victoria college", "bishop mountain hall", "new residence hall"]
-DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-MEALS = ["breakfast", "lunch", "dinner", "soup", "brunch"]
-DIETARY_SYMBOLS = ["gf", "v", "ve", "df", "mse", "h"]
+def refine_to_list(raw_data):
+    '''
+    (str) -> list<str>
+    Converts raw data into a list of strings, each element being
+    one line of the raw data, without any excess quotations.
+    '''
+    raw_list = raw_data.split("\n")
+    print(len(raw_list))
+    better_list = []
+    j = -3
+    for i in range(len(raw_list)):
+        if raw_list[i][-2] == " ":
+            new_elmt = raw_list[i].strip("\"")
+            j = i
+        elif i == (j + 1):
+            new_elmt += raw_list[i].strip("\"")
+            better_list.append(new_elmt)
+        else:
+            better_list.append(raw_list[i])
+    print(len(better_list))
+    return better_list
+def better_json_dict_creation(trimmed_list):
+    '''
+    (list<str>) -> dict
+    Creates the json dictionary, hopefully in a better way.
+    Maybe combines helper functions, who knows...
+    '''
+    pass
+def load_json_dict(json_dict, filename):
+    pass
 def create_json_dict(raw_data):
     '''(str) -> NoneType
     Creates a json file in the database.
-    Returns a dictionary for now...'''
+    Returns a dictionary for now...
+    '''
     raw_list = raw_data.split("\n")
     better_list = []
     j = -3
@@ -108,10 +131,12 @@ def create_json_dict(raw_data):
 
         elif new_line.split()[0] in DIETARY_SYMBOLS:
             line_list = new_line.split()
-            for elmt in line_list:
-                symbol_list.append(elmt)
             for elmt in DIETARY_SYMBOLS:
-                json_dict[day][meal][dish][elmt] = True
+                json_dict[day][meal][dish][elmt] = False
+            for elmt in line_list:
+                if elmt in DIETARY_SYMBOLS:
+                    json_dict[day][meal][dish][elmt] = True
+
 
 
     #json_dict[day] = put
@@ -119,12 +144,14 @@ def create_json_dict(raw_data):
     return json_dict
 
 x = "\"\"\n\"\"\n\"\"\n\"\"\n\"\"\n\"\"\n\"\"\nWEDNESDAY\nBREAKFAST\nBlueberry Pancakes\nSOUP\nThai Chicken & Rice\nTomato & Tofu Potage VE\nLUNCH\nCod in Herbed Crust MSC\nSpaghetti\nw/ Meat Sauce\nw/Primavera Sauce VE\nGarlic Bread VE \nVegetable Fried Rice\nDINNER\nTacos VEGAN\nPulled PorkTacos GF DF\nBeef Tacos DF"
-
+#print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
 nrh = "nrh_jan23_2023.csv"
 rvc = "rvc_week4_2022.csv"
 dh = "dh_week3_2022.csv"
 cs = "cs_jan23_2023.csv"
 bmh = "bmh_week1_2022.csv"
-data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", cs))
+data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", rvc))
 y = create_json_dict(data)
 print(y)
+#test = refine_to_list(data)
+#print(test)
