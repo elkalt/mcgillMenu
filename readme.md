@@ -1,4 +1,4 @@
-# *Cafe Critics*
+# *Campus Critics*
 
 *Made for McHacks 10*
 
