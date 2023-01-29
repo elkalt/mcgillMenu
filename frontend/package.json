@@ -19,6 +19,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@ernane/svelte-star-rating": "^1.1.2",
 		"svelte-star-rating": "^2.0.1"
 	}
 }
