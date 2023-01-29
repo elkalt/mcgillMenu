@@ -31,7 +31,7 @@ def rid_not_apostrophes(weird_string):
 
 #print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
 
-DINING_HALLS = ["royal victoria college", "bishop mountain hall", "new residence hall"]
+DINING_HALLS = ["royal victoria college", "bishop mountain hall", "new residence hall", "douglas hall", "carrefour sherbrooke"]
 DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 MEALS = ["breakfast", "lunch", "dinner", "soup", "brunch"]
 DIETARY_SYMBOLS = ["gf", "v", "ve", "df", "mse", "h"]
@@ -125,6 +125,6 @@ rvc = "rvc_week4_2022.csv"
 dh = "dh_week3_2022.csv"
 cs = "cs_jan23_2023.csv"
 bmh = "bmh_week1_2022.csv"
-data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", cs))
+data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", dh))
 y = create_json_dict(data)
 print(y)
