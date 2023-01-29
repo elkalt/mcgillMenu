@@ -3,21 +3,6 @@
 from database import *
 from menu_parser import *
 
-# print(get_dining_hall("bmh"))
-
-# print(get_all_meals())
-
-# create_meal({
-#     "name": "Poutine",
-#     "options": [
-#         "VF",
-#         "VE"
-#     ]
-# })
-
-# set_rating("poutine", 3, "bmh")
-# print(get_ratings_by_dining_hall("poutine", "bmh"))
-
 all_halls = [
  {
     "hall_id": "BMH",
