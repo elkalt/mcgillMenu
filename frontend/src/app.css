@@ -101,7 +101,7 @@ li > div > a {
     height: fit-content;
     width: fit-content;
 }
-.pill {
+.pill_list {
     font-family: 'Montserrat', sans-serif;
     color: black;
     text-align: center;
@@ -114,7 +114,7 @@ li > div > a {
     margin-top: 0.2rem;
     border: 2px dotted var(--dark-pink);
 }
-.pill:hover {
+.pill_list:hover {
     cursor: help;
 }
 .gf {
@@ -155,3 +155,4 @@ button {
     cursor: pointer;
     width: 7rem;
 }
+

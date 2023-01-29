@@ -103,7 +103,7 @@
                     <div class="dietary">
                         {#each Object.keys(data.data[dish]) as key}
                             {#if data.data[dish][key] && key != "ratings"}
-                                <div class="pill {key}" title={keyConverter[key]}>{key.toUpperCase()}</div>
+                                <div class="pill_list {key}" title={keyConverter[key]}>{key.toUpperCase()}</div>
                             {/if}
                         {/each}
                     </div>
