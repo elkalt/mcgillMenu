@@ -22,6 +22,12 @@ def load_csv_file(filename):
     raw_data = open(filename, "r")
     return raw_data.read()
 
+def rid_not_apostrophes(weird_string):
+    good_string = ""
+    for i in len(range(weird_string)):
+        pass
+    return good_string
+
 
 #print(load_csv_file(os.path.join(os.path.dirname(__file__), "menus", "rvc_week2_2022.xlsx")))
 
@@ -35,15 +41,17 @@ def create_json_dict(raw_data):
     Returns a dictionary for now...'''
     raw_list = raw_data.split("\n")
     better_list = []
+    j = -3
+    new_elmt = ""
     for i in range(len(raw_list)):
-        if i == 0:
-            continue
-        elif "\"\"" == raw_list[i]:
-            continue
-        elif raw_list[i][-1] == " ":
-            continue
-        elif raw_list[i-1][-1] == " ":
-            better_list.append(raw_list[i-1].strip("\"") + raw_list[1].strip("\""))
+        if i == (len(raw_list)-1):
+            break
+        elif raw_list[i][-2] == " ":
+            new_elmt = raw_list[i].strip("\"")
+            j = i
+        elif i == (j+1):
+            new_elmt += raw_list[i].strip("\"")
+            better_list.append(new_elmt)
         else:
             better_list.append(raw_list[i])
 
@@ -62,7 +70,7 @@ def create_json_dict(raw_data):
         elif new_line in MEALS:
             meal = new_line
             json_dict[day][meal] = {}
-        elif new_line in ["dining hall"]:
+        elif new_line in ["dining hall"] or "*" in new_line:
             continue
         elif new_line[0:2] == "w/" or new_line[0:6] == "option":
             new_list = new_line.split()
@@ -114,6 +122,9 @@ x = "\"\"\n\"\"\n\"\"\n\"\"\n\"\"\n\"\"\n\"\"\nWEDNESDAY\nBREAKFAST\nBlueberry P
 
 nrh = "nrh_jan23_2023.csv"
 rvc = "rvc_week4_2022.csv"
-data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", rvc))
+dh = "dh_week3_2022.csv"
+cs = "cs_jan23_2023.csv"
+bmh = "bmh_week1_2022.csv"
+data = load_csv_file(os.path.join(os.path.dirname(__file__), "menus", cs))
 y = create_json_dict(data)
 print(y)
