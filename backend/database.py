@@ -53,7 +53,9 @@ def update_dining_hall(
                         meal_exists = True
                         break
                 if not meal_exists:
-                    update_meal(meal_id.lower(), menu[day][day_meal][meal_id])
+                    meal_id_escaped = meal_id.replace("w/", "with ").replace("/", " or")
+                    print(meal_id_escaped)
+                    create_meal(meal_id_escaped.lower(), menu[day][day_meal][meal_id])
 
 
 def get_dining_hall(dining_hall_code: str):
@@ -96,10 +98,10 @@ def update_meal(meal_id, meal):
     meal_ref = db.collection("meals").document(meal_id)
     meal_ref.set(meal)
 
-def create_meal(meal):
+def create_meal(meal_id, meal):
     db = check_creds()
     meal["ratings"] = []
-    meal_ref = db.collection("meals").document(meal["name"].lower()).set(meal)
+    meal_ref = db.collection("meals").document(meal_id.lower()).set(meal)
     return meal_ref
 
 # ! Ratings
@@ -120,7 +122,7 @@ def get_ratings_by_dining_hall(meal_id, dining_hall_id):
     meal = meal_ref.get().to_dict()
     ratings = meal["ratings"]
     ratings_by_dining_hall = []
-    print(ratings)
+    # print(ratings)
     for rating in ratings:
         if not type(rating) == dict or not rating["dining_hall_id"] or not rating["rating"]:
             continue
@@ -132,9 +134,9 @@ def get_ratings_by_dining_hall(meal_id, dining_hall_id):
 def set_rating(meal_id, rating, dining_hall_id):
     db = check_creds()
     # check if dining hall id exists
-    if dining_hall_id not in DINING_HALL_IDS and dining_hall_id.upper() not in DINING_HALL_IDS:
-        print("Invalid dining hall id")
-        return None
+    # if dining_hall_id not in DINING_HALL_IDS and dining_hall_id.upper() not in DINING_HALL_IDS:
+    #     print("Invalid dining hall id")
+    #     return None
     meal_ref = db.collection("meals").document(meal_id)
     if not meal_ref.get().exists:
         return None

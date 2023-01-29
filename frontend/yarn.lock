@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@ernane/svelte-star-rating@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@ernane/svelte-star-rating/-/svelte-star-rating-1.1.2.tgz#5444389e6870a94e385d3837fcaaf77bc9ad6cd8"
+  integrity sha512-NrrQqWzjRjxPbh6Bp7uYHc3kg3N+57SqdPArE8GKR/AT/dOIfxb65mz26JOpnxA0s2KvbkyjH/q1aliYqf8Tog==
+
 "@esbuild/android-arm64@0.16.17":
   version "0.16.17"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm64/-/android-arm64-0.16.17.tgz#cf91e86df127aa3d141744edafcba0abdc577d23"

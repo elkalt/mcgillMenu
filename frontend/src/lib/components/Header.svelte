@@ -3,7 +3,7 @@
 </script>
 
 <header>
-    <h1>McGill Menu Service</h1>
+    <h1>Better McGill Menu</h1>
     <nav>
         {#if defaultDisplay}
             <a href="/">Menu</a> |
@@ -24,6 +24,6 @@
         width: 100%;
         text-align: center;
         padding-bottom: 5px;
-        border-bottom: 2px solid var(--light-pink);
+        border-bottom: 2px solid var(--dark-pink);
     }
 </style>
