@@ -16,10 +16,10 @@
 <h1>All dishes</h1>
 
 <ul>
-    {#each data as dish}
-        {#if dish.title != undefined}
+    {#each Object.keys(data.data) as dish}
+        {#if data.data[dish].name != undefined}
             <li>
-                {dish.name}
+                <a href={`/dishes/${data.data[dish].name}`}> {data.data[dish].name} </a>
             </li>
         {/if}
     {/each}
